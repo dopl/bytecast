@@ -18,18 +18,17 @@ public class ByteCastTest {
     
     public static void main(String args[]) throws IOException
     {
-        //ProcessBuilder
-        Process pr = Runtime.getRuntime().exec("./a", new String[0], new File("/home/dhrumin/code/bytecast/bytecast-test/src/edu/syr/bytecast/test"));
+        Runtime.getRuntime().exec("chmod +x run.bat", new String[0], new File("src/edu/syr/bytecast/test/"));
+        Process pr = Runtime.getRuntime().exec("./run.bat", new String[0], new File("src/edu/syr/bytecast/test/"));
         BufferedReader ir = new BufferedReader(new InputStreamReader(pr.getInputStream()));
-        while(true)
-        {
+        while(true) {
             String line = ir.readLine();
             if(line != null) {
                 System.out.println(line);
-            }                
+            }
             else {
-             break;   
-            }                             
+             break;
+            }
         }
     }
 }
