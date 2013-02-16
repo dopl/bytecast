@@ -1,5 +1,8 @@
 #!/bin/sh
 
+cd bytecast-common
+git pull origin master
+cd ..
 cd bytecast-fsys
 git pull origin master
 cd ..
