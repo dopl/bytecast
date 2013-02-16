@@ -1,19 +1,15 @@
 #!/bin/sh
 
 cd bytecast-fsys
-git reset --hard
 git pull origin master
 cd ..
 cd bytecast-amd64
-git reset --hard
 git pull origin master
 cd ..
 cd bytecast-jimple
-git reset --hard
 git pull origin master
 cd ..
 cd bytecast-runtime
-git reset --hard
 git pull origin master
 cd ..
 
