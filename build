@@ -1,5 +1,6 @@
 #!/bin/sh
 
+ant -f bytecast-common/bytecast-common/build.xml
 ant -f bytecast-fsys/dev/bytecast.fsys/build.xml
 ant -f bytecast-amd64/bytecast-amd64/build.xml
 ant -f bytecast-jimple/bytecast-jimple/build.xml 
