@@ -1,0 +1,6 @@
+#!/bin/sh
+
+rm -rf bytecast-fsys
+rm -rf bytecast-amd64
+rm -rf bytecast-jimple
+rm -rf bytecast-runtime
