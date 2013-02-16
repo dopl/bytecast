@@ -1,3 +1,8 @@
 dist/
 build/
 private/
+bytecast-amd64/
+bytecast-common/
+bytecast-fsys/
+bytecast-jimple/
+bytecast-runtime/
