@@ -31,10 +31,10 @@ public class BytecastBuilder {
   
   public void build(File root){
     String base_path = root.getAbsolutePath()+File.separator;
-    m_buildEntries.add(new BuildEntry(base_path+"bytecast-common/bytecast-common/build.xml"));
-    m_buildEntries.add(new BuildEntry(base_path+"bytecast-fsys/dev/bytecast.fsys/build.xml"));
-    m_buildEntries.add(new BuildEntry(base_path+"bytecast-amd64/bytecast-amd64/build.xml"));
-    m_buildEntries.add(new BuildEntry(base_path+"bytecast-jimple/bytecast-jimple/build.xml"));
+    m_buildEntries.add(new BuildEntry("bytecast-common", base_path+"bytecast-common/bytecast-common/build.xml"));
+    m_buildEntries.add(new BuildEntry("bytecast-fsys", base_path+"bytecast-fsys/dev/bytecast.fsys/build.xml"));
+    m_buildEntries.add(new BuildEntry("bytecast-amd64", base_path+"bytecast-amd64/bytecast-amd64/build.xml"));
+    m_buildEntries.add(new BuildEntry("bytecast-jimple", base_path+"bytecast-jimple/bytecast-jimple/build.xml"));
     
     for(BuildEntry entry : m_buildEntries){
       entry.build();
