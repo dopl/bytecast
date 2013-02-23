@@ -5,7 +5,7 @@
  * See the file LICENSE for copying permission.
  */
 
-package org.trifort.gitparser;
+package edu.syr.bytecast.gitparser;
 
 import java.util.Comparator;
 
