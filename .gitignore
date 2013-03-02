@@ -6,4 +6,5 @@ bytecast-common/
 bytecast-fsys/
 bytecast-jimple/
 bytecast-runtime/
+bytecast-documents/
 api_key.txt
