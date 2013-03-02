@@ -23,7 +23,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GithubCampfire {
+  
+  private CampfirePost m_campfirePost;
 
+  public GithubCampfire(){
+    m_campfirePost = new CampfirePost(551294);  
+  }
+  
   private void runOne(GithubEntry repo) {
     List<GitCommit> prev = repo.getPreviousLog();
     GitRemoteChanges remote_changes = new GitRemoteChanges();
@@ -40,8 +46,8 @@ public class GithubCampfire {
     int diff = next_size - prev_size;
     for(int i = 0; i < diff; ++i){
       GitCommit curr = next.get(i);
-      System.out.println("new commit: "+curr.getSmallHash());
-      System.out.println("  "+curr.getMessage());
+      String message = "["+repo.getShortName()+"] "+curr.getSmallHash()+": "+curr.getMessage();
+      m_campfirePost.post(message);
     }
     
   }
@@ -52,8 +58,9 @@ public class GithubCampfire {
     repos.add(new GithubEntry("bytecast-common", new File(base_path+"bytecast-common/")));
     repos.add(new GithubEntry("bytecast-fsys", new File(base_path+"bytecast-fsys/")));
     repos.add(new GithubEntry("bytecast-amd64", new File(base_path+"bytecast-amd64/")));
-    repos.add(new GithubEntry("bytecast-jimple", new File(base_path+"bytecast-jimple")));
-    repos.add(new GithubEntry("bytecast-runtime", new File(base_path+"bytecast-runtime")));
+    repos.add(new GithubEntry("bytecast-jimple", new File(base_path+"bytecast-jimple/")));
+    repos.add(new GithubEntry("bytecast-runtime", new File(base_path+"bytecast-runtime/")));
+    repos.add(new GithubEntry("bytecast-documents", new File(base_path+"bytecast-documents/")));
     
     while(true){
       for(GithubEntry repo : repos){

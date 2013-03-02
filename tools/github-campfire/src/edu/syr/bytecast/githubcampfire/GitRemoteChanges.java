@@ -36,9 +36,22 @@ public class GitRemoteChanges {
     }
     
     List<String> lines = runner.getOutput();
-    for(int i = 0; i < lines.size() - 4; ++i){
+    for(int i = 0; i < lines.size(); ++i){
       String curr = lines.get(i);
-      String message = lines.get(i + 4);
+      int message_line = i + 1;
+      String message = "";
+      while(message_line < lines.size()){
+        message = lines.get(message_line);
+        if(message.trim().equals("")){
+          ++message_line;
+          break;
+        }
+        ++message_line;
+      }
+      
+      if(message_line < lines.size()){
+        message = lines.get(message_line);
+      }
       
       String example_commit_line = "commit e0a352588b70f544857aa9cfb1177e301d62bd1d";
       if(curr.length() == example_commit_line.length()){

@@ -20,13 +20,32 @@ package edu.syr.bytecast.githubcampfire;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStreamReader;
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
+import org.apache.http.auth.AuthScheme;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.auth.BasicSchemeFactory;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.SingleClientConnManager;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
 
 public class CampfirePost {
 
   private String m_apiKey;
+  private int m_room;
   
-  public CampfirePost(){
+  public CampfirePost(int room){
     m_apiKey = readApiKey();
+    m_room = room;
   }
   
   private String readApiKey(){
@@ -41,12 +60,41 @@ public class CampfirePost {
     }
   }
   
-  private void post(String message) {
-    
+  public CampfirePostReply post(String message) {
+    //see: http://stackoverflow.com/questions/2603691/android-httpclient-and-https
+    try {
+      String xml_message = "<message><type>TextMessage</type><body>"+message+"</body></message>";
+      
+      SchemeRegistry schemeRegistry = new SchemeRegistry();   
+      schemeRegistry.register(new Scheme("https", SSLSocketFactory.getSocketFactory(), 443));
+
+      BasicSchemeFactory factory = new BasicSchemeFactory();
+      
+      HttpParams params = new BasicHttpParams();
+      params.setParameter("realm", "https://trifort.campfirenow.com/");
+      
+      SingleClientConnManager mgr = new SingleClientConnManager(params, schemeRegistry);
+      DefaultHttpClient client = new DefaultHttpClient(mgr, params);
+      HttpPost post = new HttpPost("https://trifort.campfirenow.com/room/"+m_room+"/speak.xml");
+      post.setHeader("Content-type", "application/xml");
+      
+      AuthScheme scheme = factory.newInstance(params);
+      Header header = scheme.authenticate(new UsernamePasswordCredentials(m_apiKey), post);
+      
+      HttpEntity entity = new StringEntity(xml_message);
+      post.setEntity(entity);
+      post.setHeader(header);
+      HttpResponse response = client.execute(post);
+      
+      return new CampfirePostReply(response);
+    } catch(Exception ex){//post.setEntity;
+      ex.printStackTrace();
+      return null;
+    }
   }
   
   public static void main(String[] args){
-    CampfirePost poster = new CampfirePost();
+    CampfirePost poster = new CampfirePost(553947);
     poster.post("hello world from github-campfire.jar");
   }
 
