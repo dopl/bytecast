@@ -65,4 +65,10 @@ public class CampfirePostReply {
   public List<String> getEntity(){
     return m_entity;
   }
+  
+  @Override
+  public String toString(){
+    String ret = "["+m_statusCode+": "+m_reason+"]";
+    return ret;
+  }
 }
