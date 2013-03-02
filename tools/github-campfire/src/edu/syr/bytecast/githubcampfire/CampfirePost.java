@@ -75,7 +75,8 @@ public class CampfirePost {
       
       SingleClientConnManager mgr = new SingleClientConnManager(params, schemeRegistry);
       DefaultHttpClient client = new DefaultHttpClient(mgr, params);
-      HttpPost post = new HttpPost("https://trifort.campfirenow.com/room/"+m_room+"/speak.xml");
+      String url = "https://trifort.campfirenow.com/room/"+m_room+"/speak.xml";
+      HttpPost post = new HttpPost(url);
       post.setHeader("Content-type", "application/xml");
       
       AuthScheme scheme = factory.newInstance(params);
@@ -94,8 +95,8 @@ public class CampfirePost {
   }
   
   public static void main(String[] args){
-    CampfirePost poster = new CampfirePost(553947);
-    poster.post("hello world from github-campfire.jar");
+    CampfirePost poster = new CampfirePost(551294);
+    poster.post("testing CampfirePost.java");
   }
 
 }
