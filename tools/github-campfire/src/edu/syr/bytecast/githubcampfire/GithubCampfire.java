@@ -17,7 +17,6 @@
  */
 package edu.syr.bytecast.githubcampfire;
 
-import edu.syr.bytecast.util.RunProcess;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +64,7 @@ public class GithubCampfire {
     repos.add(new GithubEntry("bytecast-jimple", new File(base_path+"bytecast-jimple/")));
     repos.add(new GithubEntry("bytecast-runtime", new File(base_path+"bytecast-runtime/")));
     repos.add(new GithubEntry("bytecast-documents", new File(base_path+"bytecast-documents/")));
+    repos.add(new GithubEntry("bytecast-test", new File(base_path+"bytecast-test/")));
     
     while(true){
       for(GithubEntry repo : repos){
