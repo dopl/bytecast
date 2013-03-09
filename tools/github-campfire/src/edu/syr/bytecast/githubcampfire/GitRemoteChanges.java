@@ -30,6 +30,9 @@ public class GitRemoteChanges {
     
     RunProcess runner = new RunProcess();
     try {
+      GitFetch git_fetch = new GitFetch();
+      git_fetch.run(folder);
+      
       runner.exec("git log origin/master", folder);
     } catch(Exception ex){
       ex.printStackTrace();

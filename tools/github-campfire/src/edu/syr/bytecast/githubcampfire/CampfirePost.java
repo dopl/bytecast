@@ -20,11 +20,9 @@ package edu.syr.bytecast.githubcampfire;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.InputStreamReader;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
 import org.apache.http.auth.AuthScheme;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.methods.HttpPost;
@@ -49,15 +47,8 @@ public class CampfirePost {
   }
   
   private String readApiKey(){
-    try {
-      BufferedReader reader = new BufferedReader(new FileReader("api_key.txt"));
-      String ret = reader.readLine();
-      reader.close();
-      return ret;
-    } catch(Exception ex){
-      ex.printStackTrace();
-      return "";
-    }
+    ReadFileLine reader = new ReadFileLine();
+    return reader.read("api_key.txt");
   }
   
   public CampfirePostReply post(String message) {
