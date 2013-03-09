@@ -6,3 +6,4 @@ git clone git@github.com:dopl/bytecast-amd64.git
 git clone git@github.com:dopl/bytecast-jimple.git
 git clone git@github.com:dopl/bytecast-runtime.git
 git clone git@github.com:dopl/bytecast-documents.git
+git clone git@github.com:dopl/bytecast-test.git
