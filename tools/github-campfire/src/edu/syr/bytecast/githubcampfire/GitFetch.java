@@ -35,10 +35,11 @@ public class GitFetch {
   }
   
   public void run(File start_dir){
+    System.out.println("git fetch: "+start_dir);
     RunProcess runner = new RunProcess();
-    String[] env = {"SSHPASS="+m_password};
     try {
-      runner.exec("sshpass -e git fetch", env, start_dir);
+      String[] env = {"SSHPASS="+m_password};
+      runner.exec("sshpass -e; git fetch", env, start_dir);
     } catch(Exception ex){
       ex.printStackTrace();
     } 
