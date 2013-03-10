@@ -10,4 +10,4 @@ bytecast-documents/
 bytecast-test/
 api_key.txt
 private_key_pass.txt
-bytecast-all/src/
+tools/javadoc-publish/bytecast-all/src/
