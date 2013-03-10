@@ -21,47 +21,49 @@ package edu.syr.pcpratts.javadocpublish;
 import edu.syr.bytecast.util.CopyFile;
 import edu.syr.bytecast.util.RunProcess;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JavadocPublish {
 
-  private Map<File, String> m_rootToFolder;
+  private List<String> m_projects;
   
   public JavadocPublish(){
-    m_rootToFolder = new HashMap<File, String>();
+    m_projects = new ArrayList<String>();
     String base_path = "../../";
-    m_rootToFolder.put(new File(base_path), "bytecast-root");
-    m_rootToFolder.put(new File(base_path+"bytecast-common/bytecast-common/"), "bytecast-common");
-    m_rootToFolder.put(new File(base_path+"bytecast-fsys/dev/bytecast.fsys/"), "bytecast-fsys");
-    m_rootToFolder.put(new File(base_path+"bytecast-amd64/bytecast-amd64/"), "bytecast-amd64");
-    m_rootToFolder.put(new File(base_path+"bytecast-jimple/bytecast-jimple/"), "bytecast-jimple");
-    //m_rootToFolder.put(new File(base_path+"bytecast-runtime/"), "bytecast-runtime");
-    m_rootToFolder.put(new File(base_path+"bytecast-test/"), "bytecast-test");
+    m_projects.add(base_path+"bytecast-common/bytecast-common/src/");
+    m_projects.add(base_path+"bytecast-fsys/dev/bytecast.fsys/src/");
+    m_projects.add(base_path+"bytecast-amd64/bytecast-amd64/src/");
+    m_projects.add(base_path+"bytecast-jimple/bytecast-jimple/src/");
+    m_projects.add(base_path+"bytecast-test//src/");
   }
   
   public void publish() {
-    File dest = new File("javadocs");
+    File dest = new File("bytecast-all");
+    File dest_src = new File("bytecast-all/src");
     if(dest.exists()){
-      remove(dest);
+      remove(dest_src);
     }
-    dest.mkdirs();
-    for(File file : m_rootToFolder.keySet()){
-      String path = file.getAbsolutePath()+File.separator;
-      String build_xml = path+"build.xml";
-      String ant_command = "ant -f "+build_xml;
-      RunProcess runner = new RunProcess();
-      try {
-        runner.exec(ant_command, new File("."));
-      } catch(Exception ex){
-        ex.printStackTrace();
-      }
-      String dest_name = m_rootToFolder.get(file);
-      String dest_folder = dest.getAbsolutePath()+File.separator+dest_name+File.separator;
-      File dest_file = new File(dest_folder);
-      dest_file.mkdirs();
-      copyFiles(path+"dist/javadoc/", dest_folder);
+    dest_src.mkdirs();
+    String dest_folder = dest_src.getAbsolutePath()+File.separator;
+    for(String project : m_projects){
+      copyFiles(project, dest_folder);
     }
+    
+    String build_xml = dest+File.separator+"build.xml";
+    String ant_command = "ant javadoc -f "+build_xml;
+    RunProcess runner = new RunProcess();
+    try {
+      runner.exec(ant_command, new File("."));
+    } catch(Exception ex){
+      ex.printStackTrace();
+    }
+    
+    //zip javadocs folder
+    
+    //copy javadocs folder to remote
+    
+    //unzip in remote
   }
   
   private void copyFiles(String src, String dest) {
@@ -84,7 +86,15 @@ public class JavadocPublish {
   }
   
   private void remove(File dest) {
-    throw new UnsupportedOperationException("Not yet implemented");
+    File[] children = dest.listFiles();
+    for(File child : children){
+      if(child.isDirectory()){
+        remove(child);
+      } else {
+        child.delete();
+      }
+    }
+    dest.delete();
   }
   
   public static void main(String[] args) {
