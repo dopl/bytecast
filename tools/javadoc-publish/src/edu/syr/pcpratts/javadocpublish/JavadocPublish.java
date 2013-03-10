@@ -18,6 +18,7 @@
 
 package edu.syr.pcpratts.javadocpublish;
 
+import edu.syr.bytecast.util.ZipFolder;
 import edu.syr.bytecast.util.CopyFile;
 import edu.syr.bytecast.util.RunProcess;
 import java.io.File;
@@ -59,9 +60,14 @@ public class JavadocPublish {
       ex.printStackTrace();
     }
     
-    //zip javadocs folder
+    ZipFolder zipper = new ZipFolder();
+    try {
+      zipper.zip("bytecast-all/dist/javadoc", "bytecast-javadoc.zip");
+    } catch(Exception ex){
+      ex.printStackTrace();
+    }
     
-    //copy javadocs folder to remote
+    //copy zip to remote
     
     //unzip in remote
   }
