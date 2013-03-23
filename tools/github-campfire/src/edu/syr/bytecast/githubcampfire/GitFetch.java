@@ -38,8 +38,8 @@ public class GitFetch {
   public void run(String url, File start_dir){
     RunProcess runner = new RunProcess();
     try {
-      System.out.println("git fetch "+url+" master "+start_dir);
-      runner.exec("git fetch "+url+" master", start_dir);
+      System.out.println("git pull "+url+" master "+start_dir);
+      runner.exec("git pull "+url+" master", start_dir);
       List<String> output = runner.getOutput();
       List<String> errors = runner.getError();
       for(String str : output){

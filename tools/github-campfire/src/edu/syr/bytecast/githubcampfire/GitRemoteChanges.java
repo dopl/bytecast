@@ -33,7 +33,7 @@ public class GitRemoteChanges {
       GitFetch git_fetch = new GitFetch();
       git_fetch.run(url, folder);
       
-      runner.exec("git log origin/master", folder);
+      runner.exec("git log master", folder);
     } catch(Exception ex){
       ex.printStackTrace();
     }
