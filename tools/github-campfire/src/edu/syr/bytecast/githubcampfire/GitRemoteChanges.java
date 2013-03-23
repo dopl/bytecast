@@ -25,13 +25,13 @@ import java.util.List;
 
 public class GitRemoteChanges {
 
-  public List<GitCommit> parse(File folder){
+  public List<GitCommit> parse(String url, File folder){
     List<GitCommit> ret = new ArrayList<GitCommit>();
     
     RunProcess runner = new RunProcess();
     try {
       GitFetch git_fetch = new GitFetch();
-      git_fetch.run(folder);
+      git_fetch.run(url, folder);
       
       runner.exec("git log origin/master", folder);
     } catch(Exception ex){

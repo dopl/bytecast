@@ -24,6 +24,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.List;
 
 public class GitFetch {
   
@@ -34,12 +35,19 @@ public class GitFetch {
     m_password = reader.read("private_key_pass.txt");
   }
   
-  public void run(File start_dir){
-    System.out.println("git fetch: "+start_dir);
+  public void run(String url, File start_dir){
     RunProcess runner = new RunProcess();
     try {
-      String[] env = {"SSHPASS="+m_password};
-      runner.exec("sshpass -e; git fetch", env, start_dir);
+      System.out.println("git fetch "+url+" master "+start_dir);
+      runner.exec("git fetch "+url+" master", start_dir);
+      List<String> output = runner.getOutput();
+      List<String> errors = runner.getError();
+      for(String str : output){
+        System.out.println("outputs: "+str);
+      }
+      for(String str : errors){
+        System.out.println("errors: "+str); 
+      }
     } catch(Exception ex){
       ex.printStackTrace();
     } 

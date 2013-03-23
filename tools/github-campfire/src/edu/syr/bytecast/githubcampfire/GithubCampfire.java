@@ -32,7 +32,7 @@ public class GithubCampfire {
   private void runOne(GithubEntry repo) {
     List<GitCommit> prev = repo.getPreviousLog();
     GitRemoteChanges remote_changes = new GitRemoteChanges();
-    List<GitCommit> next = remote_changes.parse(repo.getPath());
+    List<GitCommit> next = remote_changes.parse(repo.getUrl(), repo.getPath());
     
     repo.setPreviousLog(next);
     if(prev == null){
@@ -57,14 +57,14 @@ public class GithubCampfire {
   
   private void run(String base_path) {
     List<GithubEntry> repos = new ArrayList<GithubEntry>();
-    repos.add(new GithubEntry("bytecast-root", new File(base_path)));
-    repos.add(new GithubEntry("bytecast-common", new File(base_path+"bytecast-common/")));
-    repos.add(new GithubEntry("bytecast-fsys", new File(base_path+"bytecast-fsys/")));
-    repos.add(new GithubEntry("bytecast-amd64", new File(base_path+"bytecast-amd64/")));
-    repos.add(new GithubEntry("bytecast-jimple", new File(base_path+"bytecast-jimple/")));
-    repos.add(new GithubEntry("bytecast-runtime", new File(base_path+"bytecast-runtime/")));
-    repos.add(new GithubEntry("bytecast-documents", new File(base_path+"bytecast-documents/")));
-    repos.add(new GithubEntry("bytecast-test", new File(base_path+"bytecast-test/")));
+    repos.add(new GithubEntry("bytecast-root", new File(base_path), "git://github.com/dopl/bytecast.git"));
+    repos.add(new GithubEntry("bytecast-common", new File(base_path+"bytecast-common/"), "git://github.com/dopl/bytecast-common.git"));
+    repos.add(new GithubEntry("bytecast-fsys", new File(base_path+"bytecast-fsys/"), "git://github.com/dopl/bytecast-fsys.git"));
+    repos.add(new GithubEntry("bytecast-amd64", new File(base_path+"bytecast-amd64/"), "git://github.com/dopl/bytecast-amd64.git"));
+    repos.add(new GithubEntry("bytecast-jimple", new File(base_path+"bytecast-jimple/"), "git://github.com/dopl/bytecast-jimple.git"));
+    repos.add(new GithubEntry("bytecast-runtime", new File(base_path+"bytecast-runtime/"), "git://github.com/dopl/bytecast-runtime.git"));
+    repos.add(new GithubEntry("bytecast-documents", new File(base_path+"bytecast-documents/"), "git://github.com/dopl/bytecast-documents.git"));
+    repos.add(new GithubEntry("bytecast-test", new File(base_path+"bytecast-test/"), "git://github.com/dopl/bytecast-test.git"));
     
     while(true){
       for(GithubEntry repo : repos){

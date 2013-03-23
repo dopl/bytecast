@@ -25,11 +25,13 @@ public class GithubEntry {
 
   private String m_shortName;
   private File m_path;
+  private String m_url;
   private List<GitCommit> m_prevLog;
   
-  public GithubEntry(String short_name, File path){
+  public GithubEntry(String short_name, File path, String url){
     m_shortName = short_name;
     m_path = path;
+    m_url = url;
     m_prevLog = null;
   }
   
@@ -39,6 +41,10 @@ public class GithubEntry {
   
   public File getPath(){
     return m_path;
+  }
+  
+  public String getUrl(){
+    return m_url;
   }
   
   public List<GitCommit> getPreviousLog(){
