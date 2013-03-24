@@ -22,10 +22,12 @@ public class GitCommit {
 
   private String m_hash;
   private String m_message;
+  private String m_email;
   
-  public GitCommit(String hash, String message) {
+  public GitCommit(String hash, String message, String email) {
     m_hash = hash;
     m_message = message;
+    m_email = email;
   }
   
   public String getHash(){
@@ -34,6 +36,10 @@ public class GitCommit {
   
   public String getMessage(){
     return m_message;
+  }
+  
+  public String getEmail(){
+    return m_email;
   }
 
   public String getSmallHash() {
