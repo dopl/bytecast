@@ -46,7 +46,7 @@ public class GithubCampfire {
     for(int i = 0; i < diff; ++i){
       GitCommit curr = next.get(i);
       String url = repo.getGithubCommitUrl()+curr.getHash();
-      String message = "["+repo.getShortName()+"] &lt;"+curr.getEmail()+"&gt; "+"<a href=\""+url+"\">"+curr.getSmallHash()+"</a>: "+curr.getMessage();
+      String message = "["+repo.getShortName()+"] &lt;"+curr.getEmail()+"&gt; "+curr.getMessage()+" ("+url+")";
       CampfirePostReply reply = m_campfirePost.post(message);
       System.out.println("message: "+message);
       if(reply.getStatusCode() != 201){
