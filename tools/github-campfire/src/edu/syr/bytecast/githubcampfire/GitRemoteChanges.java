@@ -42,6 +42,7 @@ public class GitRemoteChanges {
     for(int i = 0; i < lines.size(); ++i){
       String curr = lines.get(i);
       int message_line = i + 1;
+      int author_line = i + 1;
       String message = "";
       while(message_line < lines.size()){
         message = lines.get(message_line);
@@ -56,13 +57,27 @@ public class GitRemoteChanges {
         message = lines.get(message_line);
       }
       
+      String author = "";
+      while(author_line < lines.size()){
+        author = lines.get(author_line).trim();
+        if(author.startsWith("Author: ")){
+          String[] tokens = author.split("Author: ");
+          String author_token = tokens[1];
+          String[] tokens2 = author_token.split("<");
+          String email = tokens2[1];
+          author = email.substring(0, email.length()-1);
+          break;
+        }
+        author_line++;
+      }
+      
       String example_commit_line = "commit e0a352588b70f544857aa9cfb1177e301d62bd1d";
       if(curr.length() == example_commit_line.length()){
         if(curr.startsWith("commit")){
           String[] hash_tokens = curr.split(" ");
           String hash = hash_tokens[1].trim();
           message = message.trim();
-          ret.add(new GitCommit(hash, message));
+          ret.add(new GitCommit(hash, message, author));
         }
       }
     }
