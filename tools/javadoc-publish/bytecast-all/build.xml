@@ -1,7 +1,0 @@
-<project>
-  <target name="javadoc">
-    <javadoc charset="UTF-8" destdir="dist/javadoc" source="src/">
-      <fileset dir="src" />
-    </javadoc>
-  </target>
-</project>

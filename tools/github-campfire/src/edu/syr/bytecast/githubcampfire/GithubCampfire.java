@@ -17,6 +17,7 @@
  */
 package edu.syr.bytecast.githubcampfire;
 
+import edu.syr.bytecast.javadocpublish.JavadocPublish;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,13 @@ public class GithubCampfire {
       }
     }
     
+    System.out.println("publishing javadocs...");
+    JavadocPublish publisher = new JavadocPublish();
+    try {
+      publisher.publish();
+    } catch(Exception ex){
+      ex.printStackTrace();
+    }
   }
   
   private void run(String base_path) {

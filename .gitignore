@@ -10,6 +10,7 @@ bytecast-documents/
 bytecast-test/
 api_key.txt
 private_key_pass.txt
-tools/javadoc-publish/bytecast-all/src/
+tools/github-campfire/bytecast-all/src/
 bytecast-javadoc.zip
 github-campfire-1.0.jar
+id_rsa_passwd

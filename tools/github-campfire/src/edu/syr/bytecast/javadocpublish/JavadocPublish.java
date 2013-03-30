@@ -16,14 +16,40 @@
  *
  */
 
-package edu.syr.pcpratts.javadocpublish;
+package edu.syr.bytecast.javadocpublish;
 
+import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelExec;
+import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.SftpProgressMonitor;
 import edu.syr.bytecast.util.ZipFolder;
 import edu.syr.bytecast.util.CopyFile;
 import edu.syr.bytecast.util.RunProcess;
+import edu.syr.bytecast.util.SecureCopy;
+import edu.syr.bytecast.util.SshExec;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.security.Identity;
+import java.security.KeyPair;
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.crypto.Cipher;
+import net.schmizz.sshj.connection.channel.direct.Session;
+import net.schmizz.sshj.userauth.keyprovider.KeyPairWrapper;
+import net.schmizz.sshj.userauth.keyprovider.KeyProvider;
+import net.schmizz.sshj.userauth.keyprovider.OpenSSHKeyFile;
+import org.bouncycastle.jce.provider.JDKKeyStore;
+import sun.security.rsa.RSAPrivateKeyImpl;
+import sun.security.rsa.RSAPublicKeyImpl;
 
 public class JavadocPublish {
 
@@ -39,7 +65,7 @@ public class JavadocPublish {
     m_projects.add(base_path+"bytecast-test//src/");
   }
   
-  public void publish() {
+  public void publish() throws Exception {
     File dest = new File("bytecast-all");
     File dest_src = new File("bytecast-all/src");
     if(dest.exists()){
@@ -67,9 +93,31 @@ public class JavadocPublish {
       ex.printStackTrace();
     }
     
-    //copy zip to remote
+    SecureCopy secure_copy = new SecureCopy("/home/pcpratts/.ssh/id_rsa", 
+      readPassword("id_rsa_passwd"), "/home/pcpratts/.ssh/known_hosts", 
+      "pcpratts", "trifort.org");
     
-    //unzip in remote
+    secure_copy.copy("bytecast-javadoc.zip", "bytecast-javadoc.zip");
+    
+    SshExec ssh_exec = new SshExec("/home/pcpratts/.ssh/id_rsa", 
+      readPassword("id_rsa_passwd"), "/home/pcpratts/.ssh/known_hosts", 
+      "pcpratts", "trifort.org");
+    
+    ssh_exec.exec("rm -rf /home/pcpratts/code/trifort_www/bytecast/javadoc");
+    ssh_exec.exec("unzip bytecast-javadoc.zip");
+    ssh_exec.exec("mv javadoc /home/pcpratts/code/trifort_www/bytecast/");
+  }
+  
+  private byte[] readPassword(String filename) throws Exception {
+    InputStream fin = new FileInputStream(filename);
+    byte[] buffer = new byte[4096];
+    int len = fin.read(buffer);
+    fin.close();
+    byte[] ret = new byte[len-1];
+    for(int i = 0; i < len - 1; ++i){
+      ret[i] = buffer[i];
+    }
+    return ret;
   }
   
   private void copyFiles(String src, String dest) {
@@ -92,6 +140,9 @@ public class JavadocPublish {
   }
   
   private void remove(File dest) {
+    if(dest.exists() == false){
+      return;
+    }
     File[] children = dest.listFiles();
     for(File child : children){
       if(child.isDirectory()){
@@ -105,7 +156,11 @@ public class JavadocPublish {
   
   public static void main(String[] args) {
     JavadocPublish publisher = new JavadocPublish();
-    publisher.publish();
+    try {
+      publisher.publish();
+      System.exit(0);
+    } catch(Exception ex){
+      ex.printStackTrace();
+    }
   }
-
 }
