@@ -55,12 +55,14 @@ public class GithubCampfire {
       }
     }
     
-    System.out.println("publishing javadocs...");
-    JavadocPublish publisher = new JavadocPublish();
-    try {
-      publisher.publish();
-    } catch(Exception ex){
-      ex.printStackTrace();
+    if(diff != 0){
+      System.out.println("publishing javadocs...");
+      JavadocPublish publisher = new JavadocPublish();
+      try {
+        publisher.publish();
+      } catch(Exception ex){
+        ex.printStackTrace();
+      }
     }
   }
   
