@@ -21,3 +21,6 @@ cd ..
 cd bytecast-test
 git pull origin master
 cd ..
+cd bytecast-interp
+git pull origin master
+cd ..

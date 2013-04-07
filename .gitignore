@@ -8,6 +8,7 @@ bytecast-jimple/
 bytecast-runtime/
 bytecast-documents/
 bytecast-test/
+bytecast-interp/
 api_key.txt
 private_key_pass.txt
 tools/github-campfire/bytecast-all/src/
