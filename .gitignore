@@ -1,5 +1,6 @@
 dist/
 build/
+tools/bytecast-callgraph/bytecast-all
 private/
 bytecast-amd64/
 bytecast-common/
@@ -15,3 +16,4 @@ tools/github-campfire/bytecast-all/src/
 bytecast-javadoc.zip
 github-campfire-1.0.jar
 id_rsa_passwd
+
