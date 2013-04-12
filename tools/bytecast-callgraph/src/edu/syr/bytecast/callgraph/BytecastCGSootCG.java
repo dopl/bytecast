@@ -41,7 +41,7 @@ public class BytecastCGSootCG {
     process_dir.add("bytecast-all/build/classes/");
     Options.v().set_process_dir(process_dir);
     //need to add library paths to class path.
-    Options.v().set_soot_classpath("bytecast-all/build/classes/");
+    Options.v().set_soot_classpath("bytecast-all/build/classes/:../../bytecast-jimple/bytecast-jimple/lib/soot-2.5.0.jar:../../lib/jsch-0.1.49.jar:../../lib/commons-io-1.4.jar:../junit-4.10/junit-4.10.jar");
     Options.v().set_output_format(Options.output_format_J);
     Options.v().set_include_all(true);
     Options.v().set_whole_program(true);
