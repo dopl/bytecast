@@ -62,7 +62,9 @@ public class JavadocPublish {
     m_projects.add(base_path+"bytecast-fsys/dev/bytecast.fsys/src/");
     m_projects.add(base_path+"bytecast-amd64/bytecast-amd64/src/");
     m_projects.add(base_path+"bytecast-jimple/bytecast-jimple/src/");
-    m_projects.add(base_path+"bytecast-test//src/");
+    m_projects.add(base_path+"bytecast-test/src/");
+    m_projects.add(base_path+"bytecast-interp/src/bytecast-interp/src/");
+    m_projects.add(base_path+"bytecast-exec/");
   }
   
   public void publish() throws Exception {

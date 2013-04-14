@@ -24,3 +24,6 @@ cd ..
 cd bytecast-interp
 git pull origin master
 cd ..
+cd bytecast-exec
+git pull origin master
+cd ..

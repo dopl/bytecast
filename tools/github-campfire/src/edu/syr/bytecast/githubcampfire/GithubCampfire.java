@@ -77,6 +77,7 @@ public class GithubCampfire {
     repos.add(new GithubEntry("bytecast-documents", new File(base_path+"bytecast-documents/"), "git://github.com/dopl/bytecast-documents.git", "https://github.com/dopl/bytecast-documents/commit/"));
     repos.add(new GithubEntry("bytecast-test", new File(base_path+"bytecast-test/"), "git://github.com/dopl/bytecast-test.git", "https://github.com/dopl/bytecast-test/commit/"));
     repos.add(new GithubEntry("bytecast-interp", new File(base_path+"bytecast-interp/"), "git://github.com/dopl/bytecast-interp.git", "https://github.com/dopl/bytecast-interp/commit/"));
+    repos.add(new GithubEntry("bytecast-exec", new File(base_path+"bytecast-exec/"), "git://github.com/dopl/bytecast-exec.git", "https://github.com/dopl/bytecast-exec/commit/"));
     
     while(true){
       for(GithubEntry repo : repos){

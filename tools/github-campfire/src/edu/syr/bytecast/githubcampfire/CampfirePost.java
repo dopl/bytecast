@@ -18,8 +18,6 @@
 
 package edu.syr.bytecast.githubcampfire;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

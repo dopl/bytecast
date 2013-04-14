@@ -10,6 +10,7 @@ bytecast-runtime/
 bytecast-documents/
 bytecast-test/
 bytecast-interp/
+bytecast-exec/
 api_key.txt
 private_key_pass.txt
 tools/github-campfire/bytecast-all/src/
