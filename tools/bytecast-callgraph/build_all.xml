@@ -1,0 +1,17 @@
+<project>
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes" classpath="../../../bytecast-jimple/bytecast-jimple/lib/soot-2.5.0.jar:../../../lib/jsch-0.1.49.jar:../../../lib/commons-io-1.4.jar" />
+   
+    </target>
+    <target name="jar" depends="compile">
+        <jar destfile="Bytecast.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="rootbeer.examples.gtc2013.MatrixApp"/>
+            </manifest>
+        </jar>
+    </target>
+</project>

@@ -1,5 +1,6 @@
 dist/
 build/
+tools/bytecast-callgraph/bytecast-all
 private/
 bytecast-amd64/
 bytecast-common/
@@ -8,9 +9,11 @@ bytecast-jimple/
 bytecast-runtime/
 bytecast-documents/
 bytecast-test/
+bytecast-interp/
 api_key.txt
 private_key_pass.txt
 tools/github-campfire/bytecast-all/src/
 bytecast-javadoc.zip
 github-campfire-1.0.jar
 id_rsa_passwd
+
