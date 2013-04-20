@@ -31,9 +31,9 @@ import soot.options.Options;
  *
  * @author adodds
  */
-public class BytecastCGSootCG {
+public class BytecastCGSoot {
     
- private void run(String output_format) {
+ public void run(String output_format, BytecastCGBodyTransform btform) {
     G.reset();
     
     Options.v().set_prepend_classpath(true);
@@ -43,30 +43,33 @@ public class BytecastCGSootCG {
     //need to add library paths to class path.
     Options.v().set_soot_classpath("bytecast-all/build/classes/:../../bytecast-jimple/bytecast-jimple/lib/soot-2.5.0.jar:../../lib/jsch-0.1.49.jar:../../lib/commons-io-1.4.jar:../junit-4.10/junit-4.10.jar");
     Options.v().set_output_format(Options.output_format_J);
-    Options.v().set_include_all(true);
-    Options.v().set_whole_program(true);
+   // Options.v().set_include_all(true);
+    //Options.v().set_whole_program(true);
     Options.v().allow_phantom_refs();
     Scene.v().loadClassAndSupport("edu.syr.bytecast.fsys.elf.ElfExeObjParser");
     SootClass elf_exe_parser = Scene.v().getSootClass("edu.syr.bytecast.fsys.elf.ElfExeObjParser");
     Scene.v().setMainClass(elf_exe_parser);
-   
-    Transform tform = new Transform("wjop.BytecastCGSceneTransform", new BytecastCGSceneTransform());
-    PackManager.v().getPack("wjop").add(tform);
+    
+
+    Transform tform = new Transform("jtp.BytecastCGBodyTransform",btform);
+    PackManager.v().getPack("jtp").add(tform);
     
     String[] args = {
       "-pp",
       "-output-format", output_format,
       "-include-all",
-      "-w"
+    //  "-w"
     };
 
     soot.Main.main(args);
   }
   
   public static void main(String[] args) {
-    BytecastCGSootCG soot_example = new BytecastCGSootCG();
+    BytecastCGSoot soot_example = new BytecastCGSoot();
     
-    //soot_example.run("J");
-    soot_example.run("J");
+    BytecastCGBodyTransform btform = new BytecastCGBodyTransform(); 
+    
+    soot_example.run("J",btform);
+    System.out.println("done");
   }
 }

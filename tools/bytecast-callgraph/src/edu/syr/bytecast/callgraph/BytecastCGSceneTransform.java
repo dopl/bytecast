@@ -39,6 +39,7 @@ public class BytecastCGSceneTransform extends SceneTransformer{
         MethodOrMethodContext momc = src_methods.next();
         SootMethod soot_method = momc.method();
         String signature = soot_method.getSignature();
+        System.out.println(signature);         
     }
   }
 }
