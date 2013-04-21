@@ -1,6 +1,7 @@
 dist/
 build/
 tools/bytecast-callgraph/bytecast-all
+tools/bytecast-callgraph/xmldata.xml
 private/
 bytecast-amd64/
 bytecast-common/
