@@ -54,31 +54,37 @@ public class BytecastCGBodyTransform extends BodyTransformer {
       PatchingChain<Unit> units = b.getUnits();
       Iterator<Unit> iter = units.iterator();
       String src_sig = src_method.getSignature();
-      while(iter.hasNext())
+      if(src_sig.contains("edu.syr.bytecast.")==true)
       {
-          Unit next = iter.next();
-          List<ValueBox> boxes = next.getUseAndDefBoxes();
-          for(ValueBox box : boxes)
-          {
-              Value value = box.getValue();
-              if(value instanceof InvokeExpr)
-              {
+        while(iter.hasNext())
+        {
+            Unit next = iter.next();
+            List<ValueBox> boxes = next.getUseAndDefBoxes();
+            for(ValueBox box : boxes)
+            {
+                Value value = box.getValue();
+                if(value instanceof InvokeExpr)
+                {
                   InvokeExpr expr = (InvokeExpr) value;
                   SootMethod dst_method = expr.getMethod();
                   String dst_sig = dst_method.getSignature();
-                  if(m_map.containsKey(src_sig))
+                  if(dst_sig.contains("edu.syr.bytecast.")==true)
                   {
-                     Set<String> dests = m_map.get(src_sig);
-                     dests.add(dst_sig);
-                  }
-                  else
-                  {
+                    if(m_map.containsKey(src_sig))
+                    {
+                        Set<String> dests = m_map.get(src_sig);
+                        dests.add(dst_sig);
+                    }
+                    else
+                    {
                       Set<String> dests = new HashSet<String>();
                       dests.add(dst_sig);
                       m_map.put(src_sig,dests);
-                  }                      
+                    }  
+                  }
               }
           }
+        }
       }
     }
   }

@@ -180,7 +180,7 @@ public class BytecastCGGraphBuilder {
 
         Visualization vis = new Visualization();
         /* vis is the main object that will run the visualization */
-        vis.add("socialnet", graph);
+        vis.add("Bytecast", graph);
         /* add our data to the visualization */
 
         // 3. setup the renderers and the render factory
@@ -188,6 +188,8 @@ public class BytecastCGGraphBuilder {
         // labels for name
         LabelRenderer nameLabel = new LabelRenderer("name");
         nameLabel.setRoundedCorner(8, 8);
+        nameLabel.setHorizontalAlignment(4);
+        nameLabel.setVerticalAlignment(4);
         /* nameLabel decribes how to draw the data elements labeled as "name" */
 
         // create the render factory
@@ -205,11 +207,11 @@ public class BytecastCGGraphBuilder {
         /* fill describes what colour to draw the graph based on a portion of the data */
 
         // node text
-        ColorAction text = new ColorAction("socialnet.nodes", VisualItem.TEXTCOLOR, ColorLib.gray(0));
+        ColorAction text = new ColorAction("Bytecast.nodes", VisualItem.TEXTCOLOR, ColorLib.gray(0));
         /* text describes what colour to draw the text */
 
         // edge
-        ColorAction edges = new ColorAction("socialnet.edges", VisualItem.STROKECOLOR, ColorLib.gray(200));
+        ColorAction edges = new ColorAction("Bytecast.edges", VisualItem.STROKECOLOR, ColorLib.gray(200));
         /* edge describes what colour to draw the edges */
 
         // combine the colour assignments into an action list
@@ -222,7 +224,7 @@ public class BytecastCGGraphBuilder {
 
         // create a separate action list for the layout
         ActionList layout = new ActionList(Activity.INFINITY);
-        layout.add(new ForceDirectedLayout("socialnet"));
+        layout.add(new ForceDirectedLayout("Bytecast"));
         /* use a force-directed graph layout with default parameters */
 
         layout.add(new RepaintAction());
@@ -247,7 +249,7 @@ public class BytecastCGGraphBuilder {
 
         // 6. launch the visualizer in a JFrame
 
-        JFrame frame = new JFrame("prefuse tutorial: socialnet");
+        JFrame frame = new JFrame("Bytecast");
         /* frame is the main window */
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -264,10 +266,19 @@ public class BytecastCGGraphBuilder {
 
     }
  
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception{
+        ByecastCGImportFiles build = new ByecastCGImportFiles();
         BytecastCGGraphBuilder test = new BytecastCGGraphBuilder();
         BytecastCGSoot cgSoot = new BytecastCGSoot();
         BytecastCGBodyTransform bform = new BytecastCGBodyTransform();
+        
+        try{
+          build.initEnviroment();  
+        }catch(IOException e) {
+           System.err.println("Error Initializing build enviroment. Exiting...");     
+        }
+        
+        
         cgSoot.run("J",bform);
         
         try{
